@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>一台电脑上同时使用gitee和github,SSH设置</title>
+      <link href="/2021-08/github-gitee-ssh.html"/>
+      <url>/2021-08/github-gitee-ssh.html</url>
+      
+        <content type="html"><![CDATA[<p>由于工作原因我需要经常使用 Gitee和 Github ，之前配置好了一个，但是不知道怎么同时配置两个，所以就有了这篇文章。<strong>【SSH配置】</strong></p><span id="more"></span><h2 id="Linux系统下："><a href="#Linux系统下：" class="headerlink" title="Linux系统下："></a>Linux系统下：</h2><ul><li>进入目录</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd ~/.ssh</span><br></pre></td></tr></table></figure><ul><li>创建github的ssh key</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxx@xxx.com&quot;</span><br></pre></td></tr></table></figure><ul><li><p>输入id_rsa_github，表示github的私钥</p></li><li><p>查看id_rsa_github.pub内容，并根据内容，在github.com账户设置SSH and GPG keys</p></li></ul><hr><ul><li>创建gitee的ssh key</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C &quot;xxx@xxx.com&quot;</span><br></pre></td></tr></table></figure><ul><li><p>输入id_rsa_gitee，表示gitee的私钥</p></li><li><p>查看id_rsa_gitee.pub内容，并根据内容，在gitee.com账户设置SSH公钥设置好</p></li></ul><hr><ul><li>在 .ssh 文件夹中创建 config 文件，添加以下内容以区分两个 ssh key：</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa_github</span><br></pre></td></tr></table></figure><ul><li>测试</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br><span class="line">ssh -T git@gitee.com</span><br></pre></td></tr></table></figure><hr><h2 id="Windows系统下："><a href="#Windows系统下：" class="headerlink" title="Windows系统下："></a>Windows系统下：</h2><ul><li>类似，config文件在<code>C:\Users\username\.ssh</code>目录下</li></ul><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"># gitee</span><br><span class="line">Host gitee.com</span><br><span class="line">HostName gitee.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile C:\Users\username\.ssh\gitee</span><br><span class="line"></span><br><span class="line"># github</span><br><span class="line">Host github.com</span><br><span class="line">HostName github.com</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile C:\Users\username\.ssh\github</span><br></pre></td></tr></table></figure><hr><hr><h2 id="如果创建SSH密钥时使用了自定义文件名git-test-所以在测试连接时导致了："><a href="#如果创建SSH密钥时使用了自定义文件名git-test-所以在测试连接时导致了：" class="headerlink" title="如果创建SSH密钥时使用了自定义文件名git_test,所以在测试连接时导致了："></a>如果创建SSH密钥时使用了自定义文件名git_test,所以在测试连接时导致了：</h2><p><code>ssh -T git@github.com</code>失败，应该使用<code>ssh -T -i C:\Users\username\.ssh\git_test git@github.com</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> SSH </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Gitee </tag>
+            
+            <tag> Github </tag>
+            
+            <tag> SSH </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>markdown插入图片代码的助手</title>
+      <link href="/2021-08/prevue.html"/>
+      <url>/2021-08/prevue.html</url>
+      
+        <content type="html"><![CDATA[<p><strong>输入以下任何一个：</strong></p><ul><li>图片的URL，比如<code>https://www.baidu.com/t.jpg</code></li><li>本地图片的路径，比如<code>d:\test\t.jpg</code></li><li>本地截图，数据在内存中</li></ul><span id="more"></span><p><strong>输出代码如下格式，并将代码放剪切板，使用时只需要粘贴</strong></p>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">&quot;data:image/png;base64,iVBORw0KGgoAAU...&quot;</span> <span class="attr">style</span>=<span class="string">&quot;display:block;zoom:100%;&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Software </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Python3 </tag>
+            
+            <tag> 预告 </tag>
+            
+            <tag> Software </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>百度热搜榜</title>
+      <link href="/2021-08/baidu-top.html"/>
+      <url>/2021-08/baidu-top.html</url>
+      
+        <content type="html"><![CDATA[<p><strong>代码如下</strong>：</p>  <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"></span><br><span class="line">url = <span class="string">&quot;https://top.baidu.com/board?tab=realtime&quot;</span></span><br><span class="line">resp = requests.get(url)</span><br><span class="line"></span><br><span class="line">html = etree.HTML(resp.text)</span><br><span class="line">contents = html.xpath(<span class="string">&#x27;//*[@id=&quot;sanRoot&quot;]/main/div[2]/div/div[2]/div/div[2]/a/div[1]/text()&#x27;</span>)</span><br><span class="line">hot = html.xpath(<span class="string">&#x27;//*[@id=&quot;sanRoot&quot;]/main/div[2]/div/div[2]/div/div[1]/div[2]/text()&#x27;</span>)</span><br><span class="line">min_num = <span class="built_in">min</span>(<span class="built_in">len</span>(hot), <span class="built_in">len</span>(contents))</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(min_num):</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;i+<span class="number">1</span>&#125;</span>.<span class="subst">&#123;contents[i]&#125;</span>,搜索指数:<span class="subst">&#123;hot[i]&#125;</span>&quot;</span>)</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Python3 </category>
+          
+          <category> Spider </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Baidu </tag>
+            
+            <tag> Hot </tag>
+            
+            <tag> Python3 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>快速使用Node</title>
+      <link href="/2021-08/node.html"/>
+      <url>/2021-08/node.html</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>CentOS安装node</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ sudo yum install node</span><br></pre></td></tr></table></figure><span id="more"></span></li><li><p>测试node是否安装成功</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ node -v</span><br><span class="line">$ npm -v</span><br></pre></td></tr></table></figure></li><li><p>npm install<br>会安装在node_modules目录中，不会修改package.json文件。之后运行npm install时不会自动安装。</p><ul><li>package.json：主要用来定义项目中需要依赖的包</li><li>package-lock.json：在 <code>npm install</code>时候生成一份文件，用以记录当前状态下实际安装的各个npm package的具体来源和版本号。</li><li> 每次执行完npm install之后会对应生成package-lock文件，该文件记录了上一次安装的具体的版本号，相当于是提供了一个参考，在出现版本兼容性问题的时候，就可以参考这个文件来修改版本号即可。</li></ul></li><li><p>npm install –save</p><p>会把webpack包安装到node_modules目录中，会在package.json的dependencies属性下添加webpack<br> 之后运行npm install命令时，会自动安装webpack到node_modules目录中</p></li><li><p>npm install –save-dev<br> 会把webpack包安装到node_modules目录中<br> 会在package.json的devDependencies属性下添加webpack<br> 之后运行npm install命令时，会自动安装webpack到node_modules目录中</p></li><li><p>全局安装vue-cli</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install vue-cli –g</span><br></pre></td></tr></table></figure></li><li><p>查看全局安装的组件 深度为1层</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm list -g --depth 0</span></span><br></pre></td></tr></table></figure></li><li><p>执行文件的代码server.js</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ node server.js</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> NodeJS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Node </tag>
+            
+            <tag> NodeJS </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>快速使用Hexo</title>
+      <link href="/2021-08/hexo-start.html"/>
+      <url>/2021-08/hexo-start.html</url>
+      
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><span id="more"></span><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Blog </category>
+          
+          <category> Hexo </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Blog </tag>
+            
+            <tag> Hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+  
+  
+</search>
